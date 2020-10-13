@@ -1,0 +1,96 @@
+<!-- OSSEC Decoder for Strongswan -->
+
+<decoder name="charon">
+    <program_name>^charon</program_name>
+</decoder>
+
+<decoder name="charon_invalid_user">
+    <parent>charon</parent>
+    <prematch>\.+no IKE config found\.</prematch>
+    <regex>\.+(no IKE config found) for 10.10.10.111...(\d+.\d+.\d+.\d+),\.</regex>
+    <order>status, srcip</order>
+</decoder>
+
+<decoder name="charon2">
+    <parent>charon</parent>
+    <prematch>\.+looking for peer configs matching\.</prematch>
+    <regex>\.+(looking for peer configs) matching (\d+.\d+.\d+.\d+)[(\.+)]...(\d+.\d+.\d+.\d+)[(\.+)]</regex>
+    <order>action, dstip, dstuser, srcip, srcuser</order>
+</decoder>
+
+<decoder name="charon3">
+   <parent>charon</parent>
+   <prematch>\.+received packet\.</prematch>
+   <regex>\.+(received packet): from (\d+.\d+.\d+.\d+)[(\d+)] to (\d+.\d+.\d+.\d+)[(\d+)]$</regex>
+   <order>action, srcip, srcport, dstip, dstport</order>
+</decoder>
+
+<decoder name="charon4">
+   <parent>charon</parent>
+   <prematch>\.+sending packet\.</prematch>
+   <regex>\.+(sending packet): from (\d+.\d+.\d+.\d+)[(\d+)] to (\d+.\d+.\d+.\d+)[(\d+)]</regex>
+   <order>action, srcip, srcport, dstip, dstport</order>
+</decoder>
+
+<decoder name="charon5">
+   <parent>charon</parent>
+   <prematch>\.+assigning virtual IP\.</prematch>
+   <regex>\.+(assigning virtual IP) (\d+.\d+.\d+.\d+) to peer '(\.+)'$</regex>
+   <order>action, dstip, dstuser</order>
+</decoder>
+
+<decoder name="charon_state_change">
+   <parent>charon</parent>
+   <prematch>\.+state change:\.</prematch>
+   <regex>\.+IKE_SA (\.+) (state change): (\.+)$</regex>
+   <order>extra_data, action, status</order>
+</decoder>
+
+<decoder name="charon3">
+   <parent>charon</parent>
+   <prematch>\.+received packet\.</prematch>
+   <regex>\.+(received packet): from (\d+.\d+.\d+.\d+)[(\d+)] to (\d+.\d+.\d+.\d+)[(\d+)]$</regex>
+   <order>action, srcip, srcport, dstip, dstport</order>
+</decoder>
+
+<decoder name="charon4">
+   <parent>charon</parent>
+   <prematch>\.+sending packet\.</prematch>
+   <regex>\.+(sending packet): from (\d+.\d+.\d+.\d+)[(\d+)] to (\d+.\d+.\d+.\d+)[(\d+)]</regex>
+   <order>action, srcip, srcport, dstip, dstport</order>
+</decoder>
+
+<decoder name="charon5">
+   <parent>charon</parent>
+   <prematch>\.+assigning virtual IP\.</prematch>
+   <regex>\.+(assigning virtual IP) (\d+.\d+.\d+.\d+) to peer '(\.+)'$</regex>
+   <order>action, dstip, dstuser</order>
+</decoder>
+
+<decoder name="charon_state_change">
+   <parent>charon</parent>
+   <prematch>\.+state change:\.</prematch>
+   <regex>\.+IKE_SA (\.+) (state change): (\.+)$</regex>
+   <order>extra_data, action, status</order>
+</decoder>
+
+<decoder name="charon_version">
+   <parent>charon</parent>
+   <prematch>\.+ unsupported IKE version \.</prematch>
+   <regex>\.+received unsupported IKE version (\.+) from (\d+.\d+.\d+.\d+), sending (\.+)$</regex>
+   <order>extra_data, srcip, action</order>
+</decoder>
+
+<decoder name="charon_look">
+   <parent>charon</parent>
+   <prematch>\.+ looking for an ike config \.</prematch>
+   <regex>\.+ (looking for an ike config) for (\d+.\d+.\d+.\d+)...(\d+.\d+.\d+.\d+)$</regex>
+   <order>action, dstip, srcip</order>
+</decoder>
+
+<decoder name="charon_forecast">
+   <parent>charon</parent>
+   <prematch>\.+ forecast intercepted \.</prematch>
+   <regex>\.+ (forecast intercepted packet): (\d+.\d+.\d+.\d+) to (\d+.\d+.\d+.\d+)$</regex>
+   <order>action, srcip, dstip</order>
+</decoder>
