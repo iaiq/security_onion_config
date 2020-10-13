@@ -1,4 +1,5 @@
 <!-- OSSEC Decoder for Strongswan -->
+<!-- Edit invalid user to include StrongSwan IP -->
 
 <decoder name="charon">
     <program_name>^charon</program_name>
