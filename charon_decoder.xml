@@ -7,7 +7,7 @@
 <decoder name="charon_invalid_user">
     <parent>charon</parent>
     <prematch>\.+no IKE config found\.</prematch>
-    <regex>\.+(no IKE config found) for 10.10.10.111...(\d+.\d+.\d+.\d+),\.</regex>
+    <regex>\.+(no IKE config found) for 1.1.1.1...(\d+.\d+.\d+.\d+),\.</regex>
     <order>status, srcip</order>
 </decoder>
 
