@@ -1,0 +1,48 @@
+<!-- DNSMASQ Decoder-->
+<!-- Some of these decoders may rely on log-queries being set to "extra" -->
+
+<decoder name="dnsmasq-dhcp">
+  <program_name>^dnsmasq-dhcp</program_name>
+</decoder>
+
+<decoder name="dnsmasq_dhcp_pack">
+  <parent>dnsmasq-dhcp</parent>
+  <prematch>\.+DHCPACK\.+</prematch>
+  <regex>(\d+) (\.+) (\d+.\d+.\d+.\d+) (\.+) (\w+)</regex>
+  <order>id, action, srcip, extra_data, user </order>
+</decoder>
+
+<decoder name="dnsmasq_dhcp_request">
+  <parent>dnsmasq-dhcp</parent>
+  <prematch>\.+DHCPREQUEST\.+</prematch>
+  <regex>(\d+) (\.+) (\d+.\d+.\d+.\d+) (\.+)</regex>
+  <order>id, action, srcip, extra_data</order>
+</decoder>
+
+<decoder name="dnsmasq_dhcp_data">
+  <parent>dnsmasq-dhcp</parent>
+  <regex>(\d+) (\.+)</regex>
+  <order>id, extra_data</order>
+</decoder>
+
+<decoder name="dnsmasq-tftp">
+  <program_name>^dnsmasq-tftp</program_name>
+</decoder>
+
+<decoder name="dnsmasq">
+  <program_name>^dnsmasq</program_name>
+</decoder>
+
+<decoder name="dnsmasq_reply_NODATA-IPv6">
+  <parent>dnsmasq</parent>
+  <prematch>\.+NODATA-IPv6$</prematch>
+  <regex>\.+(\d+.\d+.\d+.\d+)/(\d+) (\.+) (\.+) is (NODATA-IPv6)</regex>
+  <order>srcip, srcport, action, extra_data, status </order>
+</decoder>
+
+<decoder name="dnsmasq_actions">
+  <parent>dnsmasq</parent>
+  <regex>\.+(\d+.\d+.\d+.\d+)/(\d+) (\.+) (\.+) \.+ (\.+)$</regex>
+  <order>srcip, srcport, action, extra_data, status </order>
+</decoder>
+
